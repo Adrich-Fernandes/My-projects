@@ -34,9 +34,30 @@ const check_win = ()=>{
         let pos3 =btn[ptn[2]].innerHTML;
         if(pos1 != "" && pos2 != "" && pos3 != ""){
             if(pos1 === pos2 && pos2 === pos3){
-                document.querySelector('#res').innerHTML=`Winner!${btn[ptn[0]].innerHTML}`
-                btn.disabled = true;
+                
+                display_win(pos1)
+                disable();
             }
         }
     }
 }
+function disable(){
+    for(let b of btn){
+        b.disabled = true;
+    }
+}
+// display winner and display the new game button...
+function display_win(winner){
+    result.innerText = `The Winner is ${winner}`
+}
+
+const reset = document.querySelector('#reset');
+
+reset.addEventListener('click',function(){
+    turn = true;
+    btn.forEach((bn)=>{
+        bn.disabled = false;
+        bn.innerText = "";
+    })
+    result.innerText = "";
+})

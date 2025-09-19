@@ -1,6 +1,10 @@
 const btn = document.querySelectorAll('.box');
 const result = document.querySelector('#res');
-
+const reset = document.querySelector('#reset');
+// counts the wins of X , O and Draw...
+let countX = 0;
+let countO = 0;
+let countD = 0;
 // winning patterns
 let win_ptn =[
     [0,1,2],[0,4,8],
@@ -34,24 +38,35 @@ const check_win = ()=>{
         let pos3 =btn[ptn[2]].innerHTML;
         if(pos1 != "" && pos2 != "" && pos3 != ""){
             if(pos1 === pos2 && pos2 === pos3){
-                
-                display_win(pos1)
+                // to count the number of wins of X , O and Draw's
+                if(pos1 === "X"){
+                    countX+=1;
+                }
+                else if(pos1 === "O"){
+                    countO+=1;
+                }
+                display_win(pos1);
                 disable();
+            }
+            else if(pos1 || pos2 !== pos3){
+                countD+=1;
+                console.log(countD);
             }
         }
     }
 }
+
+// function to disable all the buttons...
 function disable(){
     for(let b of btn){
         b.disabled = true;
     }
 }
+
 // display winner and display the new game button...
 function display_win(winner){
     result.innerText = `The Winner is ${winner}`
 }
-
-const reset = document.querySelector('#reset');
 
 reset.addEventListener('click',function(){
     turn = true;
